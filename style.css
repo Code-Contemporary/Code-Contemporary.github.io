@@ -1,57 +1,115 @@
+/* Style sheet has not been broken up to minify and avoid renderblocking
+because it is not big enough for it to matter. */
+
 :root {
-    --darkpurple: #221153;
-    --red: #DB1F48;
-    --lightgray: #F6F6F6;
+    --darkblue: #1F2231;
+    --hoverred: #F3322B;
+    --aqua: #01DEE6;
+    --lightgray: #F3F3F3;
+    --white: #FFFFFF
 }
 
 * {
     box-sizing: border-box;
     margin: 0px;
     padding: 0px;
-    font-family: 'Roboto', Arial, sans-serif;
-    text-transform: uppercase;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     font-style: normal;
     font-weight: normal;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased !important;
+}
+
+html, body {
+    max-height: 100vh;
+    min-width: 100vw;
 }
 
 html {
+    /* Base color of all text is custom dark color, and modified
+    through classes of other colors. */
     scroll-behavior: smooth;
+    color: var(--darkblue);
+    overflow-x: hidden;
 }
+
+/* Setting SVGs to block level to avoid weird issues
+when they are wrapped in anchor tags etc.*/
+svg {
+    display: block;
+}
+
+/* Classes for elements with colors and fills in common */
+.darkblue-fill {
+    fill: var(--darkblue);
+}
+
+.darkblue-bg {
+    background-color: var(--darkblue);
+}
+
+.aqua {
+    color: var(--aqua);
+}
+
+.lightgray-fill {
+    fill: var(--lightgray);
+}
+
+.lightgray {
+    color: var(--lightgray)
+}
+
+.lightgray-bg {
+    background-color: var(--lightgray);
+}
+
+.white {
+    color: var(--white)
+}
+
+
 
 /*
 Mobile first
 */
 
+@media screen and (max-width: 767px) {
 
-/* 
-For tablets and wider
-*/
-
-@media screen and (min-width: 768px) {
     /* social media icons */
     .social-icons-container {
-        float: right;
-        position: sticky;
-        top: 40%;
-        margin-right: 10px;
+        width: fit-content;
+        position:fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index:1000;
+        margin-left: auto;
+        margin-right: auto;
+        animation-name: slidein-socials;
+        animation-duration: 2s;
+    }
+
+    @keyframes slidein-socials {
+        0% {
+            opacity:0%;
+            transform: translateY(100px);
+        }
+        100% {
+            opacity: 100%;
+            transform: translateX(0);
+        }
     }
 
     .social-icons-backgrounds {
-        background-color: var(--lightgray);
-        width: 60px;
-        height: 60px;
+        display: inline-block;
+        width: 50px;
+        height: 50px;
         border-radius: 9999px;
         padding: 10px;
-        margin-right: 5px;
-        margin-bottom: 10px;
-    }
-
-    .social-icons {
-        fill: var(--darkpurple)
-    }
-
-    .social-icons:hover {
-        box-shadow: 0 0 20px var(--lightgray);
+        margin: 10px 2px;
+        transition: background-color 200ms linear;
     }
 
     /* 
@@ -59,121 +117,647 @@ For tablets and wider
     */
 
     .above-the-fold {
-        background-color: var(--darkpurple);
         height: 100vh;
-    }
-
-    /* Nav section */
-    .nav-bar {
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap-reverse;
-        justify-content: flex-start;
-        align-items: center;
-        margin-left: 10rem;
+        flex-wrap: wrap;
     }
 
-    .nav-links {
-        color: var(--lightgray);
-        font-size: 1.5rem;
-        font-weight: 500;
-        text-decoration: none;
-        padding: 50px 5px 20px 30px;
-    }
-
-    .nav-links:hover {
-        font-weight: 700;
-        text-shadow: 0 0 5px var(--lightgray);
+    .personal-logo-area {
+        padding: 10px 0;
+        flex-basis: 100%;
     }
 
     .personal-logo {
-        width: 60px;
-        height: 60px;
-        fill: var(--lightgray);
-        margin-left: auto;
+        width: 40px;
+        height: 40px;
+        margin: 0 auto;
+        animation-name: fadein-logo;
+        animation-duration: 1.5s;
     }
 
-    /* ATF Content */
 
-    .red-frame-container {
+    /* Above the fold content */
+    .greeting-container {
+        flex-basis: 100%;
         display: flex;
-        width: calc(100vmax/2);
-        height: calc(100vmin/1.45);
-        border: 7px solid var(--red);
-        margin-left: 10rem;
+        flex-wrap: wrap;
+        max-width: 85vw;
+        min-height: fit-content;
+        max-height: 50vh;
+        border: 7px solid var(--aqua);
+        margin: auto 5vw;
+        padding: 15px 0;
+        animation-name: fadein-frame;
+        animation-duration: 5s;
     }
 
     .greeting {
-        margin: auto 5rem;
-        color: var(--lightgray);
+        margin: auto 2.5vw;
     }
 
-    .greeting h1 {
-        font-size: 3rem;
-    }
-
-    .greeting p {
-        font-size: 1.5rem;
-    }
 
     .learn-more-container {
+        flex-basis: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
-        color: var(--lightgray);
         font-size: 1.5rem;
         padding-top: 2.5rem;
         padding-bottom: 2.5rem;
+        animation-name: slidein-learn-more;
+        animation-duration: 1.5s;
+    }
+
+    @keyframes slidein-learn-more {
+        0% {
+            opacity: 0%;
+            transform: translateY(-500px);
+        }
+
+        100% {
+            opacity: 100%;
+            transform: translateX(0);
+        }
     }
 
     .chevron-icon {
         width: 50px;
-        height: 50px;
-        border-radius: 9999px;
-        fill: var(--lightgray);
+        height: 45px;
+        border-radius: 10px;
+        transition: fill 200ms linear;
     }
 
     .chevron-icon:hover {
-        box-shadow: 0 0 5px var(--lightgray);
+        fill: var(--hoverred);
+        transition: fill 200ms linear;
     }
 
-    /* The fold / center area */
 
-    .the-fold {
-        height: 98vh;
-    }
+    /* 
+    The fold / center area
+    */
 
-    .red-blocks {
-        height: 10%;
-        background-color: var(--red);
+    .the-fold::before, .the-fold::after {
+        content: '';
+        height: 4rem;
+        width: 100%;
+        background-color: var(--aqua);
     }
 
     .what-i-do {
         display: flex;
         flex-direction: row;
         justify-content: center;
-        height: 80%;
+    }
+
+    .the-fold {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+
+    .about-me-block {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+        align-items: center;
+        height: min-content;
+        margin: 1.4rem auto;
+    }
+
+    .about-me-block h2 {
+        font-size: 2rem;
+        font-weight: 600;
+    }
+
+    .about-me-block h2::after {
+        content: '';
+        display: block;
+        background-color: var(--aqua);
+        height: 2px;
+        margin-bottom: 1rem;
+    }
+
+    .about-me-block p {
+        /* paragraphs in the about me and what I do section */
+        width: 72%;
+        font-size: 1.15rem;
+        text-align: justify;
     }
 
     .what-i-do-blocks {
-        border: 1px solid var(--darkpurple);
-        border-top: none;
-        border-top-left-radius: 19px;
-        width: calc(100vw/6);
+        /* minimum width based on galaxy fold */
+        height: 32rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         text-align: center;
-        margin: 3.5rem 0;
+        margin: 1.5rem 0;
+        padding-right: 0.5rem;
+        overflow: hidden;
+    }
+
+    div.what-i-do-icons {
+        /* Margins have to be set 
+        from the svg container */
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .what-i-do-icons {
+        width: 60px;
+        height: 60px;
     }
 
     .what-i-do-blocks h2 {
-        color: var(--lightgray);
-        background-color: var(--darkpurple);
-        border: 1px solid var(--darkpurple);
         font-size: 1.8rem;
-        padding: 1rem 0;
     }
 
-    .front-end h2 {
-        border-top-left-radius: 19px;
-        border-right: none;
+    .what-i-do-blocks h3 {
+        /* Max width based on peferences in visual debugging*/
+        font-size: 1.3rem;
+        max-width: 234px;
+        margin-bottom: 1rem;
     }
+
+    .what-i-do-blocks ul {
+        list-style: none;
+        font-size: 1.15rem;
+        text-align: left;
+        margin-bottom: 1rem;
+    }
+
+    .what-i-do-blocks li::before {
+        /* Skill bullets */
+        content: '';
+        display: inline-block;
+        width: 5px;
+        height: 5px;
+        background-color: var(--aqua);
+        margin-right: 12px;
+        margin-bottom: 3px;
+    }
+
+    .navigate-to-bottom {
+        text-align: center;
+        flex-basis: 100%;
+        margin: 0 1rem;
+    }
+
+    .navigate-to-bottom h2 {
+        width: 60%;
+        margin: 0 auto;
+    }
+
+
+
+    /* 
+        Below the fold, the projects area
+    */
+
+    .below-the-fold {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .projects {
+        padding: 5rem 0;
+        flex-basis: 100%;
+        margin: 0 calc(100vw/3.5);
+    }
+
+    .projects h2 {
+        width: fit-content;
+        font-weight: 500;
+    }
+
+    .projects h2::after {
+        content: '';
+        display: block;
+        height: 3px;
+        background-color: var(--lightgray);
+    }
+    .projects p {
+        margin-top: 1rem;
+    }
+
+    .see-more-h2 {
+        flex-basis: 100%;
+        padding-bottom: 5rem;
+        margin: 0 calc(100vw/3.5);
+    }
+
+    .back-to-top-arrow {
+        border-radius: 10px;
+        margin-bottom: 5rem;
+        transition: fill 200ms linear;
+    }
+
+
+    .back-to-top-arrow:hover {
+        fill: var(--hoverred);
+        transition: fill 200ms linear;
+    }
+
+    /* 
+    Style selectors common to both media queries
+    */
+
+    .greeting h1 {
+        font-size: 3rem;
+        animation-name: slidein-greeting;
+        animation-duration: 1.5s;
+    }
+
+    .greeting p {
+        font-size: 1.5rem;
+        animation-name: slidein-greeting;
+        animation-duration: 1.5s;
+    }
+
+    @keyframes slidein-greeting {
+        0% {
+            opacity: 0%;
+            transform: translateX(-500px);
+        }
+
+        100% {
+            opacity: 100%;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes fadein-logo {
+        0% {
+            opacity: 0%;
+        }
+
+        100% {
+            opacity: 100%;
+        }
+    }
+
+    /* Greeting frame animation */
+    @keyframes fadein-frame {
+        0% {border-color: var(--darkblue)}
+        25% {border-top-color: var(--aqua);}
+        50% {border-right-color: var(--aqua);}
+        75% {border-bottom-color: var(--aqua);}
+        100% {border-left-color: var(--aqua);}
+    }
+
+
+    .tf-chevron-icon {
+        margin-bottom: 2rem;
+        margin: 10px auto;
+    }
+
+    .social-icons-backgrounds:hover {
+        background-color: var(--hoverred);
+        transition: background-color 200ms linear;
+    }
+}
+
+        
+/* 
+For tablets and wider
+*/
+@media screen and (min-width: 768px) {
+
+    /* social media icons */
+    .social-icons-container {
+        width: fit-content;
+        position:fixed;
+        right: 0;
+        bottom: 25%;
+        z-index:1000;
+        margin-right: 15px;
+        animation-name: slidein-socials;
+        animation-duration: 2s;
+    }
+
+    @keyframes slidein-socials {
+        0% {
+            opacity:0%;
+            transform: translateX(100px);
+        }
+        100% {
+            opacity: 100%;
+            transform: translateX(0);
+        }
+    }
+
+    .social-icons-backgrounds {
+        width: 60px;
+        height: 60px;
+        border-radius: 9999px;
+        padding: 10px;
+        margin: 10px 2px;
+        transition: background-color 200ms linear;
+    }
+
+    /* 
+        Main landing area
+    */
+
+    .above-the-fold {
+        height: 100vh;
+        min-height: 768px;
+    }
+
+    .personal-logo-area {
+        padding: 2rem 0;
+    }
+
+    .personal-logo {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto;
+        animation-name: fadein-logo;
+        animation-duration: 1.5s;
+    }
+
+    /* Above the fold content */
+    .greeting-container {
+        display: flex;
+        width: calc(100vmax/2);
+        height: calc(100vmin/1.45);
+        min-height: 410px;
+        border: 7px solid var(--aqua);
+        margin: auto 7vw;
+        animation-name: fadein-frame;
+        animation-duration: 5s;
+    }
+
+    .greeting {
+        margin: auto 5rem;
+    }
+
+
+    .learn-more-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 1.5rem;
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
+        animation-name: slidein-learn-more;
+        animation-duration: 1.5s;
+    }
+
+    @keyframes slidein-learn-more {
+        0% {
+            opacity: 0%;
+            transform: translateY(-500px);
+        }
+
+        100% {
+            opacity: 100%;
+            transform: translateX(0);
+        }
+    }
+
+    .chevron-icon {
+        width: 50px;
+        height: 45px;
+        border-radius: 10px;
+        transition: fill 200ms linear;
+    }
+
+    .chevron-icon:hover {
+        fill: var(--hoverred);
+        transition: fill 200ms linear;
+    }
+
+    /* The fold / center area */
+
+    .the-fold {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .the-fold::before, .the-fold::after {
+        content: '';
+        height: 4rem;
+        width: 100%;
+        background-color: var(--aqua);
+    }
+
+    .what-i-do {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+
+    .about-me-block {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+        align-items: center;
+        height: min-content;
+        margin: 1.4rem auto;
+        text-align: justify;
+    }
+
+    .about-me-block h2 {
+        font-size: 2rem;
+        font-weight: 600;
+    }
+
+    .about-me-block h2::after {
+        content: '';
+        display: block;
+        background-color: var(--aqua);
+        height: 2px;
+        margin-bottom: 1rem;
+    }
+
+    .about-me-block p {
+        /* paragraphs in the about me and what I do section */
+        width: calc(100vw/2);
+        font-size: 1.15rem;
+    }
+
+    .what-i-do-blocks {
+        flex-basis: calc(100vw/4);
+        height: 32rem;
+        min-width: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin: 1.5rem 0;
+        padding-right: 0.5rem;
+        overflow: hidden;
+    }
+
+    div.what-i-do-icons {
+        /* Margins have to be set 
+        from the svg container */
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .what-i-do-icons {
+        width: 60px;
+        height: 60px;
+    }
+
+    .what-i-do-blocks h2 {
+        font-size: 1.8rem;
+    }
+
+    .what-i-do-blocks h3 {
+        /* Min width based on peferences in visual debugging*/
+        font-size: 1.3rem;
+        min-width: 234px;
+        margin-bottom: 1rem;
+    }
+
+    .what-i-do-blocks ul {
+        list-style: none;
+        font-size: 1.15rem;
+        text-align: left;
+        margin-bottom: 1rem;
+    }
+
+    .what-i-do-blocks li::before {
+        /* Skill bullets */
+        content: '';
+        display: inline-block;
+        width: 5px;
+        height: 5px;
+        background-color: var(--aqua);
+        margin-right: 12px;
+        margin-bottom: 3px;
+    }
+
+    .navigate-to-bottom {
+        flex-basis: 100%;
+    }
+
+    .navigate-to-bottom h2 {
+        width: fit-content;
+        margin: 0 auto;
+    }
+
+    /* 
+        Below the fold, the projects area
+    */
+
+    .below-the-fold {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .projects {
+        padding: 5rem 0;
+        flex-basis: 100%;
+        margin: 0 calc(100vw/3.5);
+    }
+
+    .projects h2 {
+        width: fit-content;
+        font-weight: 500;
+    }
+
+    .projects h2::after {
+        content: '';
+        display: block;
+        height: 3px;
+        background-color: var(--lightgray);
+    }
+
+    .projects p {
+        margin-top: 1rem;
+    }
+
+    .see-more-h2 {
+        flex-basis: 100%;
+        padding-bottom: 5rem;
+        margin: 0 calc(100vw/3.5);
+    }
+
+    .see-more-h2 a {
+        color: var(--aqua);
+        text-decoration: none;
+    }
+
+    .back-to-top-arrow {
+        border-radius: 10px;
+        margin-bottom: 2rem;
+        transition: fill 200ms linear;
+    }
+
+
+    .back-to-top-arrow:hover {
+        fill: var(--hoverred);
+        transition: fill 200ms linear;
+    }
+
+    
+}
+
+/* 
+Style selectors common to both media queries
+*/
+
+.greeting h1 {
+    font-size: 3rem;
+    animation-name: slidein-greeting;
+    animation-duration: 1.5s;
+}
+
+.greeting p {
+    font-size: 1.5rem;
+    animation-name: slidein-greeting;
+    animation-duration: 1.5s;
+}
+
+@keyframes slidein-greeting {
+    0% {
+        opacity: 0%;
+        transform: translateX(-500px);
+    }
+
+    100% {
+        opacity: 100%;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadein-logo {
+    0% {
+        opacity: 0%;
+    }
+
+    100% {
+        opacity: 100%;
+    }
+}
+
+/* Greeting frame animation */
+@keyframes fadein-frame {
+    0% {border-color: var(--darkblue)}
+    25% {border-top-color: var(--aqua);}
+    50% {border-right-color: var(--aqua);}
+    75% {border-bottom-color: var(--aqua);}
+    100% {border-left-color: var(--aqua);}
+}
+
+
+.tf-chevron-icon {
+    margin-bottom: 2rem;
+    margin: 10px auto;
+}
+
+.social-icons-backgrounds:hover {
+    background-color: var(--hoverred);
+    transition: background-color 200ms linear;
 }
