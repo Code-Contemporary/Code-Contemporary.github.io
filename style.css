@@ -333,6 +333,7 @@ Mobile first
         width: fit-content;
         font-weight: 500;
     }
+    
 
     .projects h2::after {
         content: '';
@@ -348,6 +349,11 @@ Mobile first
         flex-basis: 100%;
         padding-bottom: 5rem;
         margin: 0 calc(100vw/3.5);
+    }
+
+    .see-more-h2 a {
+        color: var(--aqua);
+        text-decoration: none;
     }
 
     .back-to-top-arrow {
